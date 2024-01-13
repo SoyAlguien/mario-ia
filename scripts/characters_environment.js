@@ -100,7 +100,7 @@ function game(){
     textAlign(CENTER);
     text("GAME OVER", gameConfig.screenX/2, gameConfig.screenY/2+105);
     textSize(15);
-    text("Presiona espacio para empezar", gameConfig.screenX/2, gameConfig.screenY/2+135);
+    text("Presiona espacio o JUGAR para empezar", gameConfig.screenX/2, gameConfig.screenY/2+135);
     textSize(40);
     text(round(gameConfig.scores),gameConfig.screenX/2,gameConfig.screenY/2-35);
     text("puntos",gameConfig.screenX/2,gameConfig.screenY/2);
@@ -122,7 +122,7 @@ function changeGameStatud(character){
     initializeCharacterStatus(mario)
     gameConfig.status= "play"
   }
-  if(gameConfig.status==="gameover" && keyDown(control.revive)) {
+  if(gameConfig.status==="gameover" && (keyDown(control.revive)||JUGAR)) {
     gameConfig.status= "start"        
   }
 }
@@ -215,7 +215,7 @@ function getCoins(coin,character){
   if( character.overlap(coin) && character.live && coin.get==false){
     character.coins+=1;
     coin.get=true;
-    // coinSound.play();
+MONEDA.play()
   };
 }
     
@@ -282,20 +282,16 @@ function autoControl(character){
 function manualControl(character){
   
   if(character.live){
-    if(keyDown(control.left)||narizX<300){
+    if(keyDown(control.left)||narizX>300){
       character.velocity.x-=gameConfig.moveSpeed;
       character.changeAnimation('move');
       character.mirrorX(-1);
     }
 
-    if(keyDown(control.right)||narizX>300){
+    if(keyDown(control.right)||narizX<300){
       character.velocity.x+=gameConfig.moveSpeed;
       character.changeAnimation('move');
       character.mirrorX(1);
-    }
-
-    if(!keyDown(control.left)&&!keyDown(control.right)&&!keyDown(control.up)){ 
-      character.changeAnimation('stand');
     }
   }
  
@@ -305,7 +301,7 @@ function manualControl(character){
 function jumping(character){
 	if(narizY<125|| (keyWentDown(control.up)&&character.live) || (touchIsDown&&character.live) ){
 		character.velocity.y+=gameConfig.jump;
-		// jumpSound.play();
+	salto.play()
 	}
 }
 
@@ -385,6 +381,8 @@ function checkStatus(character){
   }
   if(character.live==false && character.liveNumber==0){
     gameConfig.status="gameover"
+    JUGAR=false
+  PERDISTE.play()
   }
 
 }

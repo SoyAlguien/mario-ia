@@ -4,7 +4,10 @@
          font-family: 'Emulogic', sans-serif !important;
          background: url(Recursos/background.jpg);
          text-align: center;
-     }
+      }
+      h1{
+         background-color: aliceblue;
+      }
      #controles{
         background: url(Recursos/game_console.png);
         height: 341px;

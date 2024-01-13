@@ -1,5 +1,11 @@
+var narizX=0
+var narizY=0
 function preload() {
-	// loadingAllSounds();  
+	salto=loadSound
+	("Recursos/jump.wav")
+	PERDISTE=loadSound("Recursos/gameover.wav")
+	MONEDA=loadSound("Recursos/coin.wav")
+	INICIAR=loadSound("Recursos/world_start.wav")
 	setSprites();
 	MarioAnimation();
 }
@@ -13,7 +19,7 @@ function setup() {
 	ia=ml5.poseNet(video,listo)
 	ia.on("pose",resultado)
 	instializeInSetup(mario);
-	// playBGMusic();
+	INICIAR.play()
 }
 
 function draw() {
